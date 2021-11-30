@@ -4,6 +4,9 @@ import torch
 import numpy as np
 
 func_types = ['poly', 'sin', 'abs', 'mix']
+func_expressions = ['$1 + 2x + 3x^2 + 4x^3$', '$\sin 3 x$', '$|x|$', '$\exp(\sin 3x)$']
+func_derivatives = ['$2 + 6 x + 12 x^2$', '$3 \cos 3 x$', 'sgn($x$)', '$3 \cos(3 x) \exp(\sin 3x)$']
+func_titles = ['Polynomial', 'Trigonometric', 'Absolute', 'Mixed']
 
 class DatasetFunction1D(Dataset):
     """1D function dataset."""
