@@ -132,3 +132,6 @@ dmypy.json
 
 # Noget andet
 .DS_Store
+
+# Drive
+.tmp.driveupload/**/*
