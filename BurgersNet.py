@@ -13,27 +13,30 @@ class Net(nn.Module):
                 ):
         
         super(Net, self).__init__()
-        self.layers = nn.Sequential(
-                nn.Linear(in_features=N_in,
-                    out_features=N_hid,
-                    bias=True),
-                act_func,
-                *(nn.Linear(in_features=N_hid,
-                    out_features=N_hid,
-                    bias=True), act_func)*(N_layers - 1),
-                nn.Linear(in_features=N_hid,
-                    out_features=N_out,
-                    bias=True)
-            )
-        
+
         self.loss_func = loss_func
         self.optimizer = optimizer(self.parameters(), lr=learning_rate)
 
+        # Initialise layers
+        layers = [nn.Linear(in_features=N_in,
+                    out_features=N_hid,
+                    bias=True), act_func]
+        for _ in range(N_layers - 1):
+            layers += [nn.Linear(in_features=N_hid,
+                    out_features=N_hid,
+                    bias=True), act_func]
+        layers += [nn.Linear(in_features=N_hid,
+                    out_features=N_out,
+                    bias=True)]
+
+        self.layers = nn.Sequential(*layers)
+        
+        # Save hyperparameters
         self.N_hid = N_hid
         self.N_layers = N_layers
         self.act_func = act_func
         self.learning_rate = learning_rate
-        self.N_params = sum([len(p) for p in self.parameters()])
+        self.N_params = sum([p.numel() for p in self.parameters()])
     
     def get_hyperparams(self):
         '''

@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 from BurgersNet import Net
 import numpy as np
 from pandas import DataFrame
@@ -20,7 +21,7 @@ def save_model(net: Net, loss_data, loss_pde, loss_bc, loss_ic, epochs, dir = '.
     results_df = DataFrame([[*losses, N_params, N_hid, N_layers, str(act_func)[:-2], epochs, learning_rate]], columns=['loss_data', 'loss_pde', 'loss_bc', 'loss_ic', 'N_params', 'N_hid', 'N_layers', 'act_fun', 'epochs', 'learning_rate'])
     results_df.to_csv(dir + get_model_name(N_hid, N_layers, learning_rate, act_func, epochs) + '.csv')
 
-def load_model(N_hid = 30, N_layers = 3, learning_rate = 0.001, act_func = 'Tanh', epochs = 5000, dir = './model/'):
+def load_model(N_hid = 30, N_layers = 3, learning_rate = 0.001, act_func = nn.Tanh(), epochs = 5000, dir = './model/'):
     '''
     @returns: model, (loss_data, loss_pde, loss_bc, loss_ic)
     '''
