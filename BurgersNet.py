@@ -14,9 +14,6 @@ class Net(nn.Module):
         
         super(Net, self).__init__()
 
-        self.loss_func = loss_func
-        self.optimizer = optimizer(self.parameters(), lr=learning_rate)
-
         # Initialise layers
         layers = [nn.Linear(in_features=N_in,
                     out_features=N_hid,
@@ -30,6 +27,9 @@ class Net(nn.Module):
                     bias=True)]
 
         self.layers = nn.Sequential(*layers)
+
+        self.loss_func = loss_func
+        self.optimizer = optimizer(self.parameters(), lr=learning_rate)
         
         # Save hyperparameters
         self.N_hid = N_hid
