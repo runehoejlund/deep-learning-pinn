@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import numpy as np
 
 class Net(nn.Module):
     def __init__(self,
@@ -55,7 +56,7 @@ class Net(nn.Module):
         u_xx_hat = torch.autograd.grad(u_x_hat, x, torch.ones(x.shape), create_graph=True)[0]
         u_t_hat = torch.autograd.grad(u_hat, t, torch.ones(t.shape), create_graph=True)[0]
         
-        nu = 1/(100*torch.pi)
+        nu = 1/(100*np.pi)
         pde = nu*u_xx_hat - u_hat*u_x_hat - u_t_hat.reshape(u_x_hat.shape)
         return pde
     
