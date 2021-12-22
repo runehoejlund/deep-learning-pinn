@@ -1,2 +1,0 @@
-,loss_data,loss_pde,loss_bc,loss_ic,N_params,N_hid,N_layers,act_fun,epochs,learning_rate
-0,0.03239,0.00121,0.00051,6e-05,5301,50,3,Tanh,5000,0.001
